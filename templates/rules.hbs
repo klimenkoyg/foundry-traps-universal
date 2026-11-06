@@ -1,0 +1,220 @@
+<div class="st-rules-body">
+  <div class="st-scroll">
+    <section class="st-rules-presets">
+      <h3>{{localize "TRAPS.Rules.presetTitle"}}</h3>
+      {{#if system}}
+      <p class="st-rules-banner is-known"><i class="fa-solid fa-circle-check" inert></i> {{system}}</p>
+      {{else}}
+      <p class="st-rules-banner"><i class="fa-solid fa-circle-info" inert></i> {{localize "TRAPS.Rules.zeroConfig"}}</p>
+      {{/if}}
+      <div class="st-rules-preset-pick">
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.presetPick"}}</span>
+          <select data-preset-pick>
+            {{#unless presetCurrent}}<option value="" selected>{{localize "TRAPS.Rules.presetCustom"}}</option>{{/unless}}
+            <optgroup label="{{localize "TRAPS.Rules.presetGroupGeneral"}}">
+              {{#each presets}}<option value="{{value}}" {{#if active}}selected{{/if}}>{{label}}</option>{{/each}}
+            </optgroup>
+            <optgroup label="{{localize "TRAPS.Rules.presetGroupSystems"}}">
+              {{#each systems}}<option value="system:{{id}}" {{#if active}}selected{{/if}}>{{label}}{{#if mine}} — {{localize "TRAPS.Rules.yourSystem"}}{{/if}}</option>{{/each}}
+            </optgroup>
+          </select>
+          <small>{{presetHint}}</small>
+        </label>
+      </div>
+      <div class="st-rules-io">
+        <button type="button" class="st-btn" data-action="exportRules"><i class="fa-solid fa-file-export" inert></i> {{localize "TRAPS.Rules.export"}}</button>
+        <button type="button" class="st-btn" data-action="importRules"><i class="fa-solid fa-file-import" inert></i> {{localize "TRAPS.Rules.import"}}</button>
+      </div>
+    </section>
+
+    <section class="st-rules-basic">
+      <div class="st-fields">
+        <label class="st-field is-wide">
+          <span class="st-field-label">{{localize "TRAPS.Settings.saveRolls.name"}}</span>
+          <select name="saveRolls">{{#each saveRolls}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+          <small class="st-rules-mode">{{saveRollsMode}}</small>
+          <small>{{localize "TRAPS.Rules.saveRollsHint"}}</small>
+        </label>
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.hp"}}</span>
+          <select name="hp">{{#each hp}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+      </div>
+    </section>
+
+    <section class="st-rules-probe">
+      <p class="st-hint">{{localize "TRAPS.Rules.findHint"}}</p>
+      <div class="st-rules-io">
+        <button type="button" class="st-btn is-primary" data-action="findPaths"><i class="fa-solid fa-wand-magic-sparkles" inert></i> {{localize "TRAPS.Rules.find"}}</button>
+        <button type="button" class="st-btn" data-action="probe"><i class="fa-solid fa-magnifying-glass" inert></i> {{localize "TRAPS.Rules.probe"}}</button>
+      </div>
+      {{#if probe}}
+      <div class="st-rules-probe-out">
+        <b>{{probe.title}}</b>
+        {{#if probe.empty}}<p>{{probe.empty}}</p>{{/if}}
+        <ul>{{#each probe.lines}}<li class="{{#if ok}}is-ok{{else}}is-missing{{/if}}"><span>{{label}}</span> <code>{{path}}</code> <b>{{value}}</b></li>{{/each}}</ul>
+      </div>
+      {{/if}}
+    </section>
+
+    <details class="st-group st-rules-advanced" data-advanced {{#if advancedOpen}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.advanced"}}</span></summary>
+      <p class="st-hint">{{localize "TRAPS.Rules.advancedHint"}}</p>
+    <details class="st-group" data-group="checks" {{#if open.checks}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.checksTitle"}}</span></summary>
+      <div class="st-fields">
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.formula"}}</span>
+          <input type="text" name="formula" value="{{formula}}" spellcheck="false" autocomplete="off">
+          <small>{{localize "TRAPS.Rules.fields.formulaHint"}}</small>
+        </label>
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.compare"}}</span>
+          <select name="compare">{{#each compare}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.target"}}</span>
+          <select name="target">{{#each target}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.crits"}}</span>
+          <select name="crits">{{#each crits}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        <label class="st-field is-wide is-check">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.critDouble"}}</span>
+          <input type="checkbox" name="critDouble" {{#if critDouble}}checked{{/if}}>
+        </label>
+        <label class="st-field is-wide is-check">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.askBonus"}}</span>
+          <input type="checkbox" name="askBonus" {{#if askBonus}}checked{{/if}}>
+          <small>{{localize "TRAPS.Rules.fields.askBonusHint"}}</small>
+        </label>
+      </div>
+    </details>
+
+    <details class="st-group" data-group="saves" {{#if open.saves}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.savesTitle"}}</span></summary>
+      <p class="st-hint">{{localize "TRAPS.Rules.rowsHint"}}</p>
+      <table class="st-rules-rows">
+        <thead><tr>
+          <th>{{localize "TRAPS.Rules.col.key"}}</th><th>{{localize "TRAPS.Rules.col.label"}}</th><th>{{localize "TRAPS.Rules.col.bonus"}}</th>
+          <th>{{localize "TRAPS.Rules.col.target"}}</th><th>{{localize "TRAPS.Rules.col.formula"}}</th><th>{{localize "TRAPS.Rules.col.compare"}}</th><th></th>
+        </tr></thead>
+        <tbody>
+          {{#each saves}}
+          <tr>
+            <td><input type="text" name="saves.{{index}}.key" value="{{key}}" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.key"}}"></td>
+            <td><input type="text" name="saves.{{index}}.label" value="{{label}}" placeholder="{{placeholder}}" aria-label="{{localize "TRAPS.Rules.col.label"}}"></td>
+            <td><input type="text" name="saves.{{index}}.bonus" value="{{bonus}}" placeholder="system.abilities.dex.save" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.bonus"}}"></td>
+            <td><input type="text" name="saves.{{index}}.target" value="{{target}}" placeholder="system.saves.breath.value" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.target"}}"></td>
+            <td><input type="text" name="saves.{{index}}.formula" value="{{formula}}" placeholder="{{../formula}}" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.formula"}}"></td>
+            <td><select name="saves.{{index}}.compare" aria-label="{{localize "TRAPS.Rules.col.compare"}}">{{#each compareOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></td>
+            <td>{{#if canRemove}}<button type="button" class="st-icon-btn" data-action="removeRow" data-list="saves" data-index="{{index}}" aria-label="{{localize "TRAPS.Rules.remove"}}" data-tooltip="{{localize "TRAPS.Rules.remove"}}"><i class="fa-solid fa-xmark" inert></i></button>{{/if}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <button type="button" class="st-btn" data-action="addRow" data-list="saves"><i class="fa-solid fa-plus" inert></i> {{localize "TRAPS.Rules.addSave"}}</button>
+      <div class="st-fields">
+        {{#each saveMap}}
+        <label class="st-field">
+          <span class="st-field-label">{{label}}</span>
+          <select name="map.{{cat}}">{{#each options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        {{/each}}
+      </div>
+    </details>
+
+    <details class="st-group" data-group="skills" {{#if open.skills}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.skillsTitle"}}</span></summary>
+      <table class="st-rules-rows">
+        <thead><tr><th>{{localize "TRAPS.Rules.col.key"}}</th><th>{{localize "TRAPS.Rules.col.label"}}</th><th>{{localize "TRAPS.Rules.col.bonus"}}</th><th>{{localize "TRAPS.Rules.col.target"}}</th><th>{{localize "TRAPS.Rules.col.formula"}}</th><th>{{localize "TRAPS.Rules.col.compare"}}</th><th></th></tr></thead>
+        <tbody>
+          {{#each skills}}
+          <tr>
+            <td><input type="text" name="skills.{{index}}.key" value="{{key}}" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.key"}}"></td>
+            <td><input type="text" name="skills.{{index}}.label" value="{{label}}" placeholder="{{placeholder}}" aria-label="{{localize "TRAPS.Rules.col.label"}}"></td>
+            <td><input type="text" name="skills.{{index}}.bonus" value="{{bonus}}" placeholder="system.skills.prc.total" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.bonus"}}"></td>
+            <td><input type="text" name="skills.{{index}}.target" value="{{target}}" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.target"}}"></td>
+            <td><input type="text" name="skills.{{index}}.formula" value="{{formula}}" placeholder="{{../formula}}" spellcheck="false" aria-label="{{localize "TRAPS.Rules.col.formula"}}"></td>
+            <td><select name="skills.{{index}}.compare" aria-label="{{localize "TRAPS.Rules.col.compare"}}">{{#each compareOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></td>
+            <td>{{#if canRemove}}<button type="button" class="st-icon-btn" data-action="removeRow" data-list="skills" data-index="{{index}}" aria-label="{{localize "TRAPS.Rules.remove"}}" data-tooltip="{{localize "TRAPS.Rules.remove"}}"><i class="fa-solid fa-xmark" inert></i></button>{{/if}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <button type="button" class="st-btn" data-action="addRow" data-list="skills"><i class="fa-solid fa-plus" inert></i> {{localize "TRAPS.Rules.addSkill"}}</button>
+      <div class="st-fields">
+        {{#each skillMap}}
+        <label class="st-field">
+          <span class="st-field-label">{{label}}</span>
+          <select name="map.{{cat}}">{{#each options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        {{/each}}
+      </div>
+    </details>
+
+    <details class="st-group" data-group="damage" {{#if open.damage}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.damageTitle"}}</span></summary>
+      <div class="st-fields">
+        {{#if hpIsPath}}
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.hpPath"}}</span>
+          <input type="text" name="hpPath" value="{{hpPath}}" placeholder="system.attributes.hp" spellcheck="false">
+        </label>
+        {{/if}}
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.acPath"}}</span>
+          <input type="text" name="acPath" value="{{acPath}}" placeholder="system.attributes.ac.value" spellcheck="false">
+          <small>{{localize "TRAPS.Rules.fields.acPathHint"}}</small>
+        </label>
+        <label class="st-field is-wide">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.types"}}</span>
+          <input type="text" name="types" value="{{types}}" spellcheck="false">
+          <small>{{localize "TRAPS.Rules.fields.typesHint"}}</small>
+        </label>
+      </div>
+    </details>
+
+    <details class="st-group" data-group="conditions" {{#if open.conditions}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.conditionsTitle"}}</span></summary>
+      <p class="st-hint">{{localize "TRAPS.Rules.conditionsHint"}}</p>
+      <div class="st-fields">
+        {{#each conditions}}
+        <label class="st-field">
+          <span class="st-field-label">{{label}}</span>
+          <select name="conditions.{{key}}">{{#each options}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        {{/each}}
+      </div>
+    </details>
+
+    <details class="st-group" data-group="detect" {{#if open.detect}}open{{/if}}>
+      <summary><span>{{localize "TRAPS.Rules.detectTitle"}}</span></summary>
+      <div class="st-fields">
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.detect"}}</span>
+          <select name="detect">{{#each detect}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        {{#if detectPassive}}
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.passivePath"}}</span>
+          <input type="text" name="passivePath" value="{{passivePath}}" placeholder="system.skills.prc.passive" spellcheck="false">
+        </label>
+        {{/if}}
+        <label class="st-field">
+          <span class="st-field-label">{{localize "TRAPS.Rules.fields.disarmFailBy"}}</span>
+          <input type="number" name="disarmFailBy" value="{{disarmFailBy}}" min="0" max="50" step="1">
+          <small>{{localize "TRAPS.Rules.fields.disarmFailByHint"}}</small>
+        </label>
+      </div>
+    </details>
+
+    </details>
+
+  </div>
+  <footer class="st-rules-actions">
+    <button type="button" class="st-btn is-primary" data-action="save"><i class="fa-solid fa-check" inert></i> {{localize "TRAPS.Rules.save"}}</button>
+  </footer>
+</div>

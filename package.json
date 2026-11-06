@@ -1,0 +1,15 @@
+{
+  "name": "ssl_traps_universal",
+  "private": true,
+  "type": "module",
+  "description": "Западня · Universal — ловушки с анимациями для любой системы в Foundry VTT",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node scripts-dev/check.mjs",
+    "build": "node scripts-dev/build.mjs",
+    "sounds": "python3 scripts-dev/gen-sounds.py"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

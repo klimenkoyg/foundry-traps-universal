@@ -1,0 +1,64 @@
+{
+  "id": "ssl_traps_universal",
+  "title": "Западня · Universal · Trap Library · Universal",
+  "description": "<p>Библиотека ловушек с анимациями и звуками для любой системы. Ведущий перетаскивает ловушку на карту — она встаёт скрытой областью и срабатывает, когда на неё наступает персонаж: эффект, спасбросок или атака, урон, состояние и карточка в чате. Как бросать и считать, решает мастер в окне «Правила»: кто бросает (модуль, игрок кнопкой, игрок вводит итог или ведущий отмечает исход), формула, «больше» или «меньше цели», криты, свои спасброски и навыки с путями к числам в листе, урон в полоску хитов токена. Пресеты «Обычный d20» и «Только ведущий», экспорт и импорт правил. Свои анимации и звуки работают без сторонних модулей; с Sequencer и JB2A — их эффекты.</p><p>A trap library with animations and sounds for any system. The GM drags a trap onto the map — it becomes a hidden region that fires when a character steps in: an effect, a save or an attack, damage, a condition and a chat card. The GM decides how checks work in the Rules window: who rolls (the module, the player with a button, the player entering their result, or the GM marking the outcome), the formula, roll-over or roll-under, crits, your own saves and skills with paths to numbers on the sheet, damage to the token’s HP bar. Generic d20 and GM-only presets, rules export and import. Built-in animations and sounds need no other modules; with Sequencer and JB2A, their effects are used. Russian and English.</p>",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Yuriy Klimenko",
+      "url": "https://github.com/klimenkoyg"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14.370"
+  },
+  "esmodules": [
+    "scripts/main.mjs"
+  ],
+  "styles": [
+    "styles/fonts.css",
+    "styles/traps.css",
+    "styles/theme-heroic.css"
+  ],
+  "languages": [
+    {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": true,
+  "documentTypes": {
+    "RegionBehavior": {
+      "trap": {},
+      "activator": {}
+    }
+  },
+  "relationships": {
+    "recommends": [
+      {
+        "id": "sequencer",
+        "type": "module",
+        "reason": "По желанию: эффекты JB2A вместо встроенных анимаций. / Optional: JB2A effects instead of the built-in animations."
+      },
+      {
+        "id": "JB2A_DnD5e",
+        "type": "module",
+        "reason": "По желанию, вместе с Sequencer: бесплатные анимации JB2A. / Optional, with Sequencer: the free JB2A animations."
+      }
+    ]
+  },
+  "url": "https://github.com/klimenkoyg/foundry-traps-universal",
+  "manifest": "https://github.com/klimenkoyg/foundry-traps-universal/releases/latest/download/module.json",
+  "download": "https://github.com/klimenkoyg/foundry-traps-universal/releases/download/v0.1.0/module.zip",
+  "readme": "https://github.com/klimenkoyg/foundry-traps-universal/blob/main/README.md",
+  "bugs": "https://github.com/klimenkoyg/foundry-traps-universal/issues",
+  "changelog": "https://github.com/klimenkoyg/foundry-traps-universal/blob/main/CHANGELOG.md",
+  "license": "https://github.com/klimenkoyg/foundry-traps-universal/blob/main/LICENSE"
+}
